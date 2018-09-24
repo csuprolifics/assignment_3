@@ -60,19 +60,76 @@ public class Room {
 
 
 	public Booking book(Guest guest, Date arrivalDate, int stayLength, int numberOfOccupants, CreditCard creditCard) {
-		// TODO Auto-generated method stub
+		while(true){
+                System.out.println("Enter your Room no. : (Enter x for quite ) : ");
+                roomID = inputID.nextLine();
+                System.out.println("X : " + roomID.equals("x"));
+                if(roomID.equals("x")){
+                    System.out.println("Break");
+                    break;
+                }
+
+                if(getRoom(roomID) == null){
+
+                    System.out.println("The room ID is incorrect, please enter again or enter x to quit");
+
+                }
+                else{
+
+                    room = getRoom(roomID);
+
+                    if(!room.isBooked()){
+                        System.out.println("Book successfully");
+                        room.setBooked(true);
+                        break;
+                    }
+                    else{
+                        System.out.println("please enter the room ID again or enter x to quit");
+                    }
 		return null;		
 	}
 
 
 	public void checkin() {
-		// TODO Auto-generated method stub
+		if(isPending())
+		
+		{
+	
+		room.checkin();
+	
+		state = State.CHECKED_IN;
+		
+		}
+
+		else
+
+		{
+
+			throw new RuntimeException();
+		
+		}
 	}
 
 
 	public void checkout(Booking booking) {
-		// TODO Auto-generated method stub
-	}
+		if(isCheckedIn())
+		
+		{
+			Booking booking = new Booking( guest,  room,bookedArrival,
+stayLength, numberOfOccupants, creditCard);
+		room.checkout(booking);
+			
+			state = State.CHECKED_OUT;
+
+		}
+		
+		else
+
+		{
+
+		throw new RuntimeException();
+		}
+		}
 
 
 }
