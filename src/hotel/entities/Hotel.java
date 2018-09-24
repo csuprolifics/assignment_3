@@ -85,77 +85,49 @@ public class Hotel {
 	}
 
 	
-	public long book(Room room, Guest guest, 
-			Date arrivalDate, int stayLength, int occupantNumber,
-			CreditCard creditCard) {
-		
-		return 0L;		
-	}
+	public long book(Room room, Guest guest, Date arrivalDate, int stayLength, int occupantNumber, CreditCard creditCard)
+  {
+    Booking booking = room.book(guest, arrivalDate, stayLength, occupantNumber, creditCard);
+    long number = booking.getConfirmationNumber();
+    bookingsByConfirmationNumber.put(Long.valueOf(number), booking);
+    return number;
+  }
+ 
+  public void checkin(long confirmationNumber)
+  {
+    Booking booking = (Booking)bookingsByConfirmationNumber.get(Long.valueOf(confirmationNumber));
+    if (booking == null) {
+      String message = String.format("Hotel: checkin: No booking found for confirmation number %d", new Object[] { Long.valueOf(confirmationNumber) });
+      throw new RuntimeException(message);
+    }
+    int roomId = booking.getRoomId();
+ 
+    booking.checkIn();
+    activeBookingsByRoomId.put(Integer.valueOf(roomId), booking);
+  }
+ 
+  public void addServiceCharge(int roomId, ServiceType serviceType, double cost)
+  {
+    Booking booking = (Booking)activeBookingsByRoomId.get(Integer.valueOf(roomId));
+    if (booking == null) {
+     String mesg = String.format("Hotel: addServiceCharge: no booking present for room id : %d", new Object[] { 	Integer.valueOf(roomId) });
+      throw new RuntimeException(mesg);
+    }
+    booking.addServiceCharge(serviceType, cost);
+  }
+ 
+  public void checkout(int roomId)
+  {
+    Booking booking = (Booking)activeBookingsByRoomId.get(Integer.valueOf(roomId));
+    if (booking == null) {
+      String mesg = String.format("Hotel: checkout: no booking present for room id : %d", new Object[] { Integer.valueOf(roomId) });
+      throw new RuntimeException(mesg);
+    }
+    booking.checkOut();
+    activeBookingsByRoomId.remove(Integer.valueOf(roomId));
+  }
+ }
 
-	
-	public void checkin(long confirmationNumber) {
-		if(isPending())
-		
-		{
-
-		room.checkin();
-		state = State.CHECKED_IN;
-
-		}
-
-		else
-
-		{
-
-		throw new RuntimeException();
-
-		}	
-	}
-
-
-	public void addServiceCharge(int roomId, ServiceType serviceType, double cost) {
-		if(isCheckedIn())
-	
-			{
-
-			charges.add(new ServiceCharge(serviceType,cost));
-
-			}
-
-			else
-
-			{
-
-			throw new RuntimeException();
-	
-			}
-	}
-
-	
-	public void checkout(int roomId) 
-		{
-		if(isCheckedIn())
-
-		{
-			
-		Booking booking = new Booking( guest,  room,bookedArrival,
-stayLength, numberOfOccupants, creditCard);
-				room.checkout(booking);
-			
-		state = State.CHECKED_OUT;
-
-		}
-
-		else
-
-		{
-
-		throw new RuntimeException();
-		
-		}
-
-	
-	}
 
 
 }
