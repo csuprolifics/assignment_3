@@ -137,7 +137,35 @@ public class BookingCTL {
 
 
 	public void creditDetailsEntered(CreditCardType type, int number, int ccv) {
-		// TODO Auto-generated method stub
+		try {
+			
+			if(confirmed) {
+
+				hotel.credit(this.type);
+
+				CreditCard.displayMessage("payment Confirmed for: " + this.type);
+							state = State.COMPLETED;
+
+				BookingUI.setState(BookingUI.State.COMPLETED);
+			
+				}
+
+			else {
+
+				BookingUI.displayMessage(" Payment Not Confirmed");
+				
+
+				this.cancel();
+
+			}
+		
+
+			}
+
+		catch(Exception e) {
+
+		}
+	
 	}
 
 
