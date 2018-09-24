@@ -137,6 +137,7 @@ public class BookingCTL {
 
 
 	public void creditDetailsEntered(CreditCardType type, int number, int ccv) {
+
 		if(ccnum.length()==16){
     char[] c = ccnum.toCharArray();
     int[] cint = new int[16];
@@ -159,6 +160,7 @@ public class BookingCTL {
         result.setText("Card is Invalid");
 }else
     result.setText("Card is Invalid");
+
 	}
 
 
