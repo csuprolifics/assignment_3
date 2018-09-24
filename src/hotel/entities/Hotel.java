@@ -94,17 +94,67 @@ public class Hotel {
 
 	
 	public void checkin(long confirmationNumber) {
-		// TODO Auto-generated method stub
+		if(isPending())
+		
+		{
+
+		room.checkin();
+		state = State.CHECKED_IN;
+
+		}
+
+		else
+
+		{
+
+		throw new RuntimeException();
+
+		}	
 	}
 
 
 	public void addServiceCharge(int roomId, ServiceType serviceType, double cost) {
-		// TODO Auto-generated method stub
+		if(isCheckedIn())
+	
+			{
+
+			charges.add(new ServiceCharge(serviceType,cost));
+
+			}
+
+			else
+
+			{
+
+			throw new RuntimeException();
+	
+			}
 	}
 
 	
-	public void checkout(int roomId) {
-		// TODO Auto-generated method stub
+	public void checkout(int roomId) 
+		{
+		if(isCheckedIn())
+
+		{
+			
+		Booking booking = new Booking( guest,  room,bookedArrival,
+stayLength, numberOfOccupants, creditCard);
+				room.checkout(booking);
+			
+		state = State.CHECKED_OUT;
+
+		}
+
+		else
+
+		{
+
+		throw new RuntimeException();
+		
+		}
+
+	
 	}
 
 
