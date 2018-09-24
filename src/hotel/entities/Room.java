@@ -60,12 +60,11 @@ public class Room {
 
 
 	public Booking book(Guest guest, Date arrivalDate, int stayLength, int numberOfOccupants, CreditCard creditCard) {
-		 while(true){
 
-            System.out.println("Please choose the room you want to book \n"+getRoomList(roomDB));
+		 
 
-            while(true){
-                System.out.println("Enter your Room no. : (Enter x for quite ) : ");
+            while(true)
+               System.out.println("Enter your Room no. : (Enter x for quite ) : ");
                 roomID = inputID.nextLine();
                 System.out.println("X : " + roomID.equals("x"));
                 if(roomID.equals("x")){
@@ -99,6 +98,7 @@ public class Room {
 		
 		{
 
+
 		room.checkin();
 
 		state = State.CHECKED_IN;
@@ -111,12 +111,14 @@ public class Room {
 
 		throw new RuntimeException();
 
+
 		}
 	}
 
 
 	public void checkout(Booking booking) {
 		if(isCheckedIn())
+
 
 		{
 
@@ -133,9 +135,12 @@ stayLength, numberOfOccupants, creditCard);
 		{
 
 		throw new RuntimeException();
+
+
 		
 		}
 	}
+
 
 
 }
