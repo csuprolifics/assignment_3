@@ -60,8 +60,11 @@ public class Room {
 
 
 	public Booking book(Guest guest, Date arrivalDate, int stayLength, int numberOfOccupants, CreditCard creditCard) {
-		while(true){
-                System.out.println("Enter your Room no. : (Enter x for quite ) : ");
+
+		 
+
+            while(true)
+               System.out.println("Enter your Room no. : (Enter x for quite ) : ");
                 roomID = inputID.nextLine();
                 System.out.println("X : " + roomID.equals("x"));
                 if(roomID.equals("x")){
@@ -94,32 +97,11 @@ public class Room {
 		if(isPending())
 		
 		{
-	
+
+
 		room.checkin();
-	
+
 		state = State.CHECKED_IN;
-		
-		}
-
-		else
-
-		{
-
-			throw new RuntimeException();
-		
-		}
-	}
-
-
-	public void checkout(Booking booking) {
-		if(isCheckedIn())
-		
-		{
-			Booking booking = new Booking( guest,  room,bookedArrival,
-stayLength, numberOfOccupants, creditCard);
-		room.checkout(booking);
-			
-			state = State.CHECKED_OUT;
 
 		}
 		
@@ -128,8 +110,37 @@ stayLength, numberOfOccupants, creditCard);
 		{
 
 		throw new RuntimeException();
+
+
 		}
+	}
+
+
+	public void checkout(Booking booking) {
+		if(isCheckedIn())
+
+
+		{
+
+		Booking booking = new Booking( guest,  room,bookedArrival,
+stayLength, numberOfOccupants, creditCard);
+				room.checkout(booking);
+
+		state = State.CHECKED_OUT;
+	
 		}
+
+		else
+
+		{
+
+		throw new RuntimeException();
+
+
+		
+		}
+	}
+
 
 
 }
