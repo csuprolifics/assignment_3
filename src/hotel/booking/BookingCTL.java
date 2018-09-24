@@ -137,7 +137,28 @@ public class BookingCTL {
 
 
 	public void creditDetailsEntered(CreditCardType type, int number, int ccv) {
-		// TODO Auto-generated method stub
+		if(ccnum.length()==16){
+    char[] c = ccnum.toCharArray();
+    int[] cint = new int[16];
+    for(int i=0;i<16;i++){
+        if(i%2==1){
+            cint[i] = Integer.parseInt(String.valueOf(c[i]))*2;
+            if(cint[i] >9)
+                cint[i]=1+cint[i]%10;
+        }
+        else
+            cint[i] = Integer.parseInt(String.valueOf(c[i]));
+    }
+    int sum=0;
+    for(int i=0;i<16;i++){
+        sum+=cint[i];
+    }
+    if(sum%10==0)
+        result.setText("Card is Valid");
+    else
+        result.setText("Card is Invalid");
+}else
+    result.setText("Card is Invalid");
 	}
 
 
